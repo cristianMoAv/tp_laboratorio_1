@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1493518669 source:c:\users\nago\desktop\tp_2_cristianm\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1493517698 c:\users\nago\desktop\tp_2_cristianm\funciones.h
+
+1493517520 source:c:\users\nago\desktop\tp_2_cristianm\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+

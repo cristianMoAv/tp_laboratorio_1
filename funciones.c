@@ -4,112 +4,6 @@
 #include "funciones.h"
 
 /**
- * \brief suma las dos variables nroOne and nroTwo
- * \param nroOne corresponde al operador A
- * \param nroTwo corresponde al operador B
- * \return result que es la suma de A+B
- *
- */
-float sum(float nroOne,float nroTwo)
-{
-      float result;
-      result= nroOne + nroTwo;
-
-    return result;
-}//end of sum
-
-/**
- * \brief resta las dos variables nroOne menos nroTwo
- * \param nroOne corresponde al operador A
- * \param nroTwo corresponde al operador B
- * \return result que es el resultado de A-B
- *
- */
-float subtract(float nroOne,float nroTwo)
-{
-   float result;
-   result = nroOne - nroTwo;
-
-   return result;
-}//end of subtract
-
-/**
- * \brief multiplica nroOne y nroTwo
- * \param nroOne corresponde al operador A
- * \param nroTwo corresponde al operador B
- * \return result de  A x B
- *
- */
-float multiply(float nroOne,float nroTwo)
-{
-   float result;
-   result = nroOne * nroTwo;
-
-   return result;
-}//end of multiply
-
-/**
- * \brief divide nroOne por nroTwo
- * \param nroOne corresponde al operador A
- * \param nroTwo corresponde al operador B
- * \return result de  A/B
- *
- */
-float divide(float nroOne,float nroTwo)
-{
-   float result;
-   result= nroOne / nroTwo;
-
-   return result;
-
-}//end of divide
-
-/**
- * \brief toma el valor de operador A y se lo trabaja por recursividad
- * \param nroOne corresponde al operador A
- * \return result el factorial del valor ingresado como A
- *
- */
-int factorial(int nroOne)
-{
-	if(nroOne == 1 || nroOne == 0)
-   {
-      return 1;
-	}
-	else
-	{
-      return nroOne*factorial(nroOne-1);
-   }
-}//end of factorial
-
-/**
- * \brief Imprime menú de opciones y toma el dato ingresado por usuario
- * \return option variable para realizar la/s opcion/es de la calculadora
- *
- */
-int menu()
-{
-   int option = 0;
-
-   puts(" ====================================");
-   printf("| 1- Ingresar 1er operando (A = X)   |\n");
-   printf("| 2- Ingresar 2do operando (B = Y)   |\n");
-   printf("| 3- Calcular la suma (A+B)          |\n");
-   printf("| 4- Calcular la resta (A-B)         |\n");
-   printf("| 5- Calcular la division (A/B)      |\n");
-   printf("| 6- Calcular la multiplicacion (A*B)|\n");
-   printf("| 7- Calcular el factorial (A!)      |\n");
-   printf("| 8- Calcular todas las operacione   |\n");
-   printf("| 9- Salir                           |\n");
-   puts(" ====================================\n");
-
-   option = getValidInt("Ingrese una de las opciones disponibles\n","DATO INCORRECTO\n", 0, 10);
-
-   return option;
-
-}//end function menu
-
-/**
  * \brief Verifica si el valor recibido es numérico POS x POS de ARRAY
  * \param str Array con la cadena a ser analizada
  * \return 1 si es númerico y 0 si no lo es
@@ -145,7 +39,7 @@ void getString(char message[],char input[])
 /**
  * \brief Solicita un texto numérico al usuario y lo devuelve
  * \param message Es el mensaje a ser mostrado
- * \param input Array donde se cargará el texto ingresado
+ * \param input Array donde se cargará los chars ingresados
  * \return 1 si el texto contiene solo números
  */
 int getStringNumbers(char message[],char input[])
@@ -166,6 +60,8 @@ int getStringNumbers(char message[],char input[])
  * \brief Solicita un numero entero al usuario y lo valida
  * \param requestMessage Es el mensaje a ser mostrado para solicitar el dato
  * \param errortMessage Es el mensaje a ser mostrado en caso de error
+ * \param lowLimit el menor valor que no tolera la funcion
+ * \param hiLimit  el mayor valor que no tolera la función
  * \return El número ingresado por el usuario
  *
  */
@@ -183,224 +79,388 @@ int getValidInt(char requestMessage[],char errorMessage[], int lowLimit, int hiL
         auxInt = atoi(auxStr);
         if(auxInt < lowLimit || auxInt > hiLimit)
         {
-            printf ("El numero del debe ser mayor a %d y menor a %d\n",lowLimit,hiLimit);
+            printf ("El numero del debe ser mayor a %d y menor/igual %d\n",lowLimit,hiLimit);
             continue;
         }
+
         return auxInt;
     }
 
 }//end of getValidInt
 
-
 /**
  * \brief Imprime menú de opciones y toma el dato ingresado por usuario
- * \param nroOne es el operador A
- * \param nroTwo es el operador B
- * \return auxOne variable para cargar en el operador A
+ * \return option variable para realizar la/s opciones del menú
  *
  */
-int menuA(char nroOne, char nroTwo)
+int menu()
 {
-   int option = 1;
-   float auxOne;
-   char auxInput[250];
+   int option = 0;
 
-   puts(" ====================================");
-   printf("| 1- Ingresar 1er operando (A = %c)   |\n", nroOne);
-   printf("| 2- Ingresar 2do operando (B = %c)   |\n", nroTwo);
-   printf("| 3- Calcular la suma (A+B)          |\n");
-   printf("| 4- Calcular la resta (A-B)         |\n");
-   printf("| 5- Calcular la division (A/B)      |\n");
-   printf("| 6- Calcular la multiplicacion (A*B)|\n");
-   printf("| 7- Calcular el factorial (A!)      |\n");
-   printf("| 8- Calcular todas las operacione   |\n");
-   printf("| 9- Salir                           |\n");
-   puts(" ====================================\n");
+   puts(" ==================ABM====================");
+   printf("| 1- AGREGAR PERSONA                      |\n");
+   printf("| 2- BORRAR PERSONA                       |\n");
+   printf("| 3- IMPRIMIR LISTADO ORDENADO POR NOMBRE |\n");
+   printf("| 4- IMPRIMIR GRAFICO DE EDADES           |\n");
+   printf("| 5- SALIR                                |\n");
+   puts(" =========================================\n");
 
-   while(option == 1)
-   {
-      if(!getStringNumbersFloat("INGRESE OPERADOR A: ",auxInput))
-      {
-         printf("ERROR, INGRESE VALOR NUMERIOCO:\n");
-      }
-      else option++;
-   }
+   option = getValidInt("Ingresar una de las opciones del programa\n","DATO INCORRECTO\n", 0, 5);
 
-   auxOne = atof(auxInput);
-   puts("\n");
-   system("pause");
-   system("cls");
+   return option;
 
-   return auxOne;
-
-}//end function menuA
+}//end function menu
 
 /**
- * \brief Imprime menú de opciones y toma el dato ingresado por usuario
- * \param nroOne es el operador A
- * \param nroTwo es el operador B
- * \return auxTwo variable para cargar en el operador B
- *
+ * \brief Busca el primer lugar no utilizado en el array.
+ * \param lista Es el array en el cual buscar.
+ * \param arrayLenght Indica la longitud del array
+ * \return Si no hay lugares libres (-1) y si los hay la posición del mismo (i)
  */
-int menuB(float nroOne, char nroTwo)
+int foundFreePlace(EPersona list[], int arrayLenght)
 {
-   int option = 1;
-   float auxTwo;
-   char auxInput[250];
+    int i;
+    for(i=0; i < arrayLenght; i++)
+    {
+       if(list[i].status == 0)
+       {
+           return i;
+       }
+    }
+    return -1;
 
-   puts(" ====================================");
-   printf("| 1- Ingresar 1er operando (A = %.2f)\n", nroOne);
-   printf("| 2- Ingresar 2do operando (B = %c)   |\n", nroTwo);
-   printf("| 3- Calcular la suma (A+B)          |\n");
-   printf("| 4- Calcular la resta (A-B)         |\n");
-   printf("| 5- Calcular la division (A/B)      |\n");
-   printf("| 6- Calcular la multiplicacion (A*B)|\n");
-   printf("| 7- Calcular el factorial (A!)      |\n");
-   printf("| 8- Calcular todas las operacione   |\n");
-   printf("| 9- Salir                           |\n");
-   puts(" ====================================\n");
-
-   while(option == 1)
-   {
-      if(!getStringNumbersFloat("INGRESE OPERADOR B: ",auxInput))
-      {
-         printf("ERROR, INGRESE VALOR NUMERIOCO:\n");
-      }
-      else option++;
-   }
-
-   auxTwo = atof(auxInput);
-   puts("\n");
-
-   system("pause");
-   system("cls");
-
-   return auxTwo;
-
-}//end function menuB
+}//end of foundFreePlace
 
 /**
- * \brief Verifica si el valor recibido es aceptado como flotante negativo o positivo
+ * \brief Busca la primer ocurrencia de un producto mediante su DNI
+ * \param lista Es el array en el cual buscar.
+ * \param arrayLenght Indica la longitud del array.
+ * \param dni Es el valor que se busca.
+ * \return Si no hay ocurrencia (-1) y si la hay la posición de la misma (i)
+ */
+int FoundByDni(EPersona list[], int arrayLenght, int dni)
+{
+    int i;
+    for(i=0; i < arrayLenght; i++)
+    {
+       if(list[i].dni == dni && list[i].status == 1)
+       {
+           return i;
+       }
+    }
+    return -1;
+}//end of FoundByDni
+
+/**
+ * \brief Inicializa el status en un array de lista
+ * \param lista Es el array en el cuál buscar.
+ * \param arrayLenght Indica la longitud del array.
+ * \return -
+ */
+ void setStatus(EPersona list[], int arrayLength)
+{
+    int i;
+    for(i=0; i < arrayLength; i++)
+    {
+        list[i].status = 0;
+    }
+}//end setStatus
+
+/**
+ * \brief Verifica si el valor recibido contiene solo letras POS x POS del ARRAY
  * \param str Array con la cadena a ser analizada
- * \return 1 si es númerico y 0 si no lo es
+ * \return 1 si contiene solo ' ' y letras y 0 (cero) si no lo es
  *
  */
-int isNumberFloat(char str[]){
+int isOnlyletters(char str[])
+{
 
    int i=0;
-   int qtyDots = 0;
-   int qtyHyphen = 0;
-
-   if (str[0] == '-')
-      qtyHyphen++;
-
-   if (qtyHyphen == 1)
+   while(str[i] != '\0')
    {
-      while(str[i+1] != '\0')
-      {
-
-         if (str[i+1] == '.' && qtyDots == 0)
-         {
-            qtyDots++;
-            i++;
-            continue;
-         }
-         if (str[i+1] < '0' || str[i+1] > '9')
-
-         return 0;
-         i++;
-      }
+       if((str[i] != ' ') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z'))
+           return 0;
+       i++;
    }
-   else
-   {
-      while(str[i] != '\0')
-      {
-         if (str[i] == '.' && qtyDots == 0)
-         {
-            qtyDots++;
-            i++;
-            continue;
-         }
-         if (str[i] < '0' || str[i] > '9')
-            return 0;
-         i++;
-      }
-   }
-
    return 1;
-
-}//end of isNumberFloat
+}//end of isOnlyletters
 
 /**
- * \brief Solicita un texto numérico al usuario y lo devuelve (acepta flotantes)
- * \param menssage Es el mensaje a ser mostrado
+ * \brief Solicita un texto al usuario y lo devuelve
+ * \param message Es el mensaje a ser mostrado
  * \param input Array donde se cargará el texto ingresado
- * \return 1 si el texto contiene solo números y un dot. O un 0 si tira error
-*/
-int getStringNumbersFloat(char message[],char input[]){
+ * \return 1 si el texto contiene solo letras
+ */
+int getStringLetters(char message[],char input[])
+{
 
-    char aux[250];
+    char aux[256];
     getString(message,aux);
-    if(isNumberFloat(aux))
+    if(isOnlyletters(aux))
     {
         strcpy(input,aux);
         return 1;
     }
     return 0;
-}//end of getStringNumbersFloat
+}//end of getStringLetters
 
 /**
- * \brief Imprime menú de opciones y toma el dato ingresado por usuario
- * \return option variable para realizar la/s opcion/es de la calculadora
+ * \brief Limpia el stdin, similar a fflush
+ * \param -
+ * \return -
  *
  */
-int menuA_B(float nroOne, float nroTwo)
+void clean_stdin(void)
 {
-   int option = 0;
-
-   puts(" ====================================");
-   printf("| 1- Ingresar 1er operando (A = %.2f)\n",nroOne);
-   printf("| 2- Ingresar 2do operando (B = %.2f)\n",nroTwo);
-   printf("| 3- Calcular la suma (A+B)          |\n");
-   printf("| 4- Calcular la resta (A-B)         |\n");
-   printf("| 5- Calcular la division (A/B)      |\n");
-   printf("| 6- Calcular la multiplicacion (A*B)|\n");
-   printf("| 7- Calcular el factorial (A!)      |\n");
-   printf("| 8- Calcular todas las operacione   |\n");
-   printf("| 9- Salir                           |\n");
-   puts(" ====================================\n");
-
-   option = getValidInt("Ingrese una de las opciones disponibles\n","DATO INCORRECTO\n", 0, 10);
-
-   return option;
-
-}//end function menuA_B
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+}//end of clean_stdin
 
 /**
- * \brief Imprime menú de opciones y toma el dato ingresado por usuario
- * \param nroOne el valor que contiene el Nro A
- * \param nroTwo el char en referencia al valor pendiente de ingreso en B
- * \return option variable para realizar la/s opcion/es de la calculadora
+ * \brief Solicita un string
+ * \param requestMessage Es el mensaje a ser mostrado para solicitar el dato
+ * \param requestMessage Es el mensaje a ser mostrado en caso de error
+ * \param input Array donde se cargará el texto ingresado
+ * \return -
  *
  */
-int menuTwoA_B(float nroOne, char nroTwo)
+void getValidString(char requestMessage[],char errorMessage[], char input[])
 {
-   int option = 0;
 
-   puts(" ====================================");
-   printf("| 1- Ingresar 1er operando (A = %.2f)\n",nroOne);
-   printf("| 2- Ingresar 2do operando (B = %c)   |\n",nroTwo);
-   printf("| 3- Calcular la suma (A+B)          |\n");
-   printf("| 4- Calcular la resta (A-B)         |\n");
-   printf("| 5- Calcular la division (A/B)      |\n");
-   printf("| 6- Calcular la multiplicacion (A*B)|\n");
-   printf("| 7- Calcular el factorial (A!)      |\n");
-   printf("| 8- Calcular todas las operacione   |\n");
-   printf("| 9- Salir                           |\n");
-   puts(" ====================================\n");
+    while(1)
+    {
+        if (!getStringLetters(requestMessage,input))
+        {
+            printf ("%s\n",errorMessage);
+            continue;
+        }
+        clean_stdin();
+        break;
+    }
 
-   option = getValidInt("Ingrese una de las opciones disponibles\n","DATO INCORRECTO\n", 0, 10);
+}//end of getValidString
 
-   return option;
+/**
+ * \brief Carga los valores de EPersona
+ * \param list Es el array de persona
+ * \param freePlaceIndex Indica la posicion a setear
+ * \param nameAux nombre de la Persona
+ * \param ageAux Edad de la persona
+ * \param DNIAux Documento de indentidad de la persona
+ * \return -
+ *
+ */
+void setPerson(EPersona list[],int freePlaceIndex,char nameAux[], int ageAux, int DNIAux)
+{
+    strcpy(list[freePlaceIndex].nombre,nameAux);
+    list[freePlaceIndex].edad = ageAux;
+    list[freePlaceIndex].dni = DNIAux;
+    list[freePlaceIndex].status = 1;
+}
 
-}//end function menuTwoA_B
+/**
+ * \brief Solicita los datos a usuario y lo carga validando los mismos
+ * \param list Es el struct array de persona
+ * \return -
+ *
+ */
+void loadPerson(EPersona list[])
+{
+   int indexFreePlace = 0, MAX_PEOPLE = 20;
+   int qtyLetters;
+   char nameAux[51];
+   int ageAux;
+   int DNIAux;
+
+      indexFreePlace = foundFreePlace(list, MAX_PEOPLE);
+
+         if(indexFreePlace == -1)
+         {
+            printf("COMPLETADA LA CAPACIDAD PARA CARGAR DATOS DE PERSONAS!!\n");
+         }
+         else
+         {
+            puts("===COMIENZO CARGA PERSONAS===\n");
+
+            getValidString("Ingrese el nombre: ","El NOMBRE SOLO PUEDE TENER LETRAS\n", nameAux);
+
+            qtyLetters = strlen(nameAux);
+
+            if(qtyLetters > 50)
+            {
+               printf("NOMBRE LARGO, MAXIMO PERMITIDO '50' CARACTERES!!\n");
+            }
+            else
+            {
+               ageAux = getValidInt("Ingresar la edad de la persona:\n","MANTENER UN RANGO COHERENTE DE EDAD\n", 0,120 );
+               DNIAux = getValidInt("Ingresar el DNI de la persona:\n","DATO INCORRECTO FAVOR DE REINGRESAR\n", 0,99999999);
+               setPerson(list, indexFreePlace, nameAux, ageAux, DNIAux);
+            }
+
+         }
+
+   system("pause");
+   system("cls");
+
+}//end of loadPerson
+
+/**
+ * \brief Busca el primer lugar con status 1
+ * \param lista Es el array en el cual buscar.
+ * \param arrayLenght Indica la longitud del array
+ * \return Si no hay lugares utilizados 0 y si los hay 1
+ */
+int foundUsedPlace(EPersona list[], int arrayLenght)
+{
+    int i;
+    for(i=0; i < arrayLenght; i++)
+    {
+       if(list[i].status == 1)
+       {
+           return 1;
+       }
+    }
+    return 0;
+}//end of foundUsedPlace
+
+/**
+ * \brief Solicita al usuario el ingreso del DNI para borrar de la lista a la persona
+ * \param list Es el struct array de persona
+ * \param length el lago del array
+ * \return -
+ *
+ */
+void deletePerson(EPersona list[], int length)
+{
+   int DNIAux, index;
+
+   puts("===BORRAR PERSONAS DE LA LISTA===\n");
+
+   DNIAux = getValidInt("Ingresar el DNI de la persona:\n","DATO INCORRECTO FAVOR DE REINGRESAR\n", 0,99999999);
+
+   index = FoundByDni(list, length, DNIAux);
+
+   if(index == -1)
+   {
+      puts("EL DNI INGRESADO NO EXISTE EN EL SISTEMA");
+   }
+   else
+   {
+      list[index].status = 0;
+      puts("Persona borrada con exito\n");
+   }
+
+
+   system("pause");
+   system("cls");
+
+}//end of deletePerson
+
+/**
+ * \brief Imprime el listado de las personas ordenadas por nombre
+ * \param list Es el struct array de persona
+ * \param length el lago del array
+ * \return -
+ *
+ */
+void listPerson(EPersona list[], int length)
+{
+   int i,j;
+   EPersona auxList;
+
+   puts("===LISTA DE PERSONAS===\n");
+
+   for(i=0; i<length-1; i++)
+   {
+      if(list[i].status == 0)
+      {
+         continue;
+      }
+      for(j=i+1; j<length; j++)
+      {
+         if(list[j].status == 0)
+         {
+            continue;
+         }
+         if(stricmp(list[i].nombre, list[j].nombre) > 0)
+         {
+            auxList = list[i];
+            list[i] = list[j];
+            list[j] = auxList;
+         }
+      }
+   }
+
+   for(i=0; i<length; i++)
+   {
+      if(list[i].status == 0)
+      {
+         continue;
+      }
+      printf("NOMBRE: %12s EDAD:%4d\tDNI: %8d\n",list[i].nombre, list[i].edad, list[i].dni);
+
+   }
+
+   system("pause");
+   system("cls");
+
+}//end of listPerson
+
+/**
+ * \brief Imprime gráfico de barras con respecto a las edades de las personas
+ * \param list Es el struct array de persona
+ * \param length el largo del array
+ * \return -
+ *
+ */
+void graphicOfAges(EPersona list[], int length)
+{
+   int lessOr18=0, between19_35=0, upper35=0 ;
+   int maxValue=0;
+   int i,j;
+
+   for(i=0; i<length; i++)
+   {
+      if(list[i].status == 0)
+      {
+         continue;
+      }
+      if(list[i].edad<=18)
+         lessOr18++;
+      if(list[i].edad>18 && list[i].edad<36)
+         between19_35++;
+      if(list[i].edad>35)
+         upper35++;
+   }
+
+   int accumulator[] = {lessOr18,between19_35,upper35};
+
+
+   for(i=0; i<3; i++)
+   {
+      if(accumulator[i] > maxValue)
+         maxValue = accumulator[i];
+   }
+
+   for(i=maxValue; i>0; i--)
+   {
+      for(j=0; j<3; j++)
+      {
+         if(accumulator[j]>=i)
+         {
+            printf("     *");
+         }
+         else
+            printf("      ");
+      }
+      puts("");
+   }
+   puts("   <18   19-35   >35\n\n");
+
+   system("pause");
+   system("cls");
+
+}//end of graphicOfAges
+
